@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<!-- saved from url=(0024)https://www.climb.ac.uk/ -->
+<html lang="en" data-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CLIMB — Cloud infrastructure for microbial bioinformatics</title>
+<meta name="description" content="CLIMB is the UK's cloud computing infrastructure for microbial bioinformatics - JupyterLab environments, storage and workflows, with pricing and specs up front.">
+<link rel="canonical" href="https://climb.ac.uk/">
+<link rel="preload" href="https://www.climb.ac.uk/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin="">
+<link rel="preload" href="https://www.climb.ac.uk/assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin="">
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 800;font-display:swap;src:url('/assets/fonts/inter-latin.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/space-grotesk-latin.woff2') format('woff2')}
+@font-face{font-family:'Old Standard TT';font-style:italic;font-weight:400;font-display:swap;src:url('/assets/fonts/old-standard-tt-italic-400-latin.woff2') format('woff2')}
+</style>
+<style>
+/* ==========================================================================
+    CLIMB — design system
+    Brand navy #08204A, Space Grotesk display + Inter body, light/dark themes.
+    Layout language adapted from the refreshed-homepage mock, applied across
+    a full multi-page Jekyll site.
+    ========================================================================== */
+
+:root, [data-theme="light"] {
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+  --text-2xl: clamp(1.9rem, 1.2rem + 2.5vw, 3rem);
+  --text-3xl: clamp(2.4rem, 1.6rem + 4vw, 4.25rem);
+
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+  --space-12: 3rem; --space-16: 4rem; --space-20: 5rem; --space-24: 6rem;
+
+  --color-bg: #eef2f7;
+  --color-surface: #f6f9fc;
+  --color-surface-2: #ffffff;
+  --color-surface-offset: #e2e8f0;
+  --color-border: rgba(8, 32, 74, 0.14);
+  --color-divider: rgba(8, 32, 74, 0.10);
+  --color-text: #14233d;
+  --color-text-muted: #526174;
+  --color-text-faint: #5f6f85;
+
+  --color-primary: #08204A;
+  --color-primary-2: #123a6b;
+  --color-primary-tint: rgba(8, 32, 74, 0.08);
+  --color-accent: #9aa6b2;
+  --color-accent-2: #c7ced7;
+  --color-warn: #b5741f;
+  --color-warn-tint: rgba(181, 116, 31, 0.12);
+  --color-inverse: #f7fafc;
+
+  --footer-bg: #08204A;
+}
+
+[data-theme="dark"] {
+  --color-bg: #0b1220;
+  --color-surface: #101a2b;
+  --color-surface-2: #16233b;
+  --color-surface-offset: #223247;
+  --color-border: rgba(224, 232, 240, 0.14);
+  --color-divider: rgba(224, 232, 240, 0.08);
+  --color-text: #eef4fb;
+  --color-text-muted: #b9c6d6;
+  --color-text-faint: #90a1b5;
+
+  --color-primary: #7fa7d2;
+  --color-primary-2: #9ab9da;
+  --color-primary-tint: rgba(127, 167, 210, 0.12);
+  --color-accent: #94a3b8;
+  --color-accent-2: #334155;
+  --color-warn: #e0a04a;
+  --color-warn-tint: rgba(224, 160, 74, 0.14);
+  --color-inverse: #0b1220;
+
+  --footer-bg: #080f1a;
+}
+
+:root {
+  --radius-sm: 0.5rem; --radius-md: 0.8rem; --radius-lg: 1.2rem;
+  --radius-xl: 1.8rem; --radius-full: 9999px;
+  --shadow-sm: 0 6px 18px rgba(15, 29, 49, 0.06);
+  --shadow-md: 0 16px 40px rgba(15, 29, 49, 0.10);
+  --shadow-lg: 0 24px 64px rgba(15, 29, 49, 0.16);
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Menlo', 'Consolas', monospace;
+  --content: 1160px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--color-text);
+  background:
+    radial-gradient(circle at top left, rgba(18, 58, 107, 0.12), transparent 34%),
+    linear-gradient(180deg, var(--color-bg), var(--color-surface));
+}
+[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at top left, rgba(127, 167, 210, 0.12), transparent 34%),
+    linear-gradient(180deg, var(--color-bg), var(--color-surface));
+}
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; border: none; background: none; color: inherit; cursor: pointer; }
+
+.container { width: min(calc(100% - 2rem), var(--content)); margin-inline: auto; }
+.skip-link { position: absolute; left: -9999px; top: auto; }
+.skip-link:focus {
+  left: 1rem; top: 1rem; background: var(--color-surface-2);
+  padding: 0.75rem 1rem; border-radius: var(--radius-md); z-index: 1000;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.08; letter-spacing: -0.02em; color: var(--color-text); }
+h1 { font-size: var(--text-3xl); margin-bottom: 1rem; }
+h2 { font-size: var(--text-2xl); margin: 2rem 0 1rem; max-width: 20ch; }
+h3 { font-size: 1.25rem; margin-bottom: 0.6rem; }
+
+p { margin: 0 0 1.1em; }
+.prose p, .prose li { max-width: 68ch; }
+
+/* ---------- Header / nav ---------- */
+
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--color-bg) 80%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-divider);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 0; gap: 1rem; position: relative; }
+.brand { display: flex; align-items: center; gap: 0.7rem; font-weight: 800; }
+.brand-logo { width: 38px; height: 38px; flex: none; }
+.logo-dark { display: none; }
+[data-theme="dark"] .logo-light { display: none; }
+[data-theme="dark"] .logo-dark { display: block; }
+.brand-wordmark { display: flex; flex-direction: column; line-height: 1; }
+.brand-wordmark span:first-child { font-family: var(--font-display); font-size: 1.15rem; letter-spacing: 0.02em; color: var(--color-text); }
+.brand-wordmark span:last-child { font-size: 0.72rem; color: var(--color-text-muted); margin-top: 0.2rem; }
+
+.main-nav { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+.main-nav a { font-size: var(--text-sm); color: var(--color-text-muted); font-weight: 500; }
+.main-nav a:hover, .main-nav a:focus-visible, .main-nav a[aria-current="page"] { color: var(--color-text); }
+
+.header-actions { display: flex; align-items: center; gap: 0.7rem; }
+.theme-toggle {
+  width: 44px; height: 44px; padding: 0; border-radius: var(--radius-full);
+  border: 1px solid var(--color-border); background: var(--color-surface-2);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.icon-sun { display: none; }
+[data-theme="dark"] .icon-sun { display: block; }
+[data-theme="dark"] .icon-moon { display: none; }
+
+.nav-cta, .btn.primary {
+  min-height: 44px; padding: 0.75rem 1.15rem; border-radius: var(--radius-full);
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-2));
+  color: var(--color-inverse); font-weight: 600; font-size: var(--text-sm);
+  box-shadow: var(--shadow-sm);
+}
+[data-theme="dark"] .nav-cta, [data-theme="dark"] .btn.primary { color: #0b1220; }
+.nav-cta:hover, .btn.primary:hover { filter: brightness(1.06); }
+
+.nav-toggle { display: none; width: 44px; height: 44px; border-radius: var(--radius-full); border: 1px solid var(--color-border); background: var(--color-surface-2); align-items: center; justify-content: center; }
+
+/* ---------- Footer ---------- */
+
+.site-footer { background: var(--footer-bg); color: #dbe4f0; margin-top: 0; }
+.footer-inner {
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2rem;
+  padding: 3rem 0 2rem;
+}
+.footer-brand .brand-logo { width: 44px; height: 44px; margin-bottom: 1rem; }
+.footer-brand p { max-width: 30ch; font-size: var(--text-sm); color: #a9b8cc; }
+.footer-logos { display: flex; gap: 1rem; margin-top: 0.75rem; align-items: flex-end; }
+.footer-logos img { height: 40px; width: auto; opacity: 0.75; }
+.footer-logos .logo-qib { height: 50px; }
+.footer-logos a:hover img { opacity: 1; }
+.footer-col h4 { font-family: var(--font-body); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: #7e93ad; margin-bottom: 0.9rem; }
+.footer-col ul { list-style: none; display: grid; gap: 0.55rem; }
+.footer-col a { color: #e6edf7; font-size: var(--text-sm); }
+.footer-col a:hover { color: #ffffff; text-decoration: underline; }
+.footer-base {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
+  padding: 1.25rem 0 1.75rem; border-top: 1px solid rgba(255,255,255,0.12);
+  color: #93a6bf; font-size: var(--text-sm);
+}
+.footer-base a { color: #c3d1e3; }
+.footer-base a:hover { color: #fff; }
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  min-height: 44px; padding: 0.75rem 1.15rem; border-radius: var(--radius-full);
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
+  font-weight: 600; font-size: var(--text-sm); text-decoration: none;
+}
+.btn.secondary { border: 1px solid var(--color-border); background: var(--color-surface-2); color: var(--color-text); }
+.btn.secondary:hover { border-color: var(--color-text-muted); }
+.actions { display: flex; gap: 0.9rem; flex-wrap: wrap; margin: 1.25rem 0; }
+
+/* ---------- Page shell ---------- */
+
+.page-header { padding: clamp(3rem, 7vw, 5.5rem) 0 1.5rem; }
+.page-header h1 { margin-bottom: 0.5rem; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-full); background: var(--color-primary-tint);
+  color: var(--color-primary); font-size: var(--text-sm); font-weight: 600;
+  margin-bottom: 1rem; letter-spacing: 0.01em;
+}
+.lede { font-size: var(--text-lg); color: var(--color-text-muted); max-width: 60ch; }
+.muted { color: var(--color-text-muted); font-size: var(--text-sm); }
+.page-content { padding: 1.5rem 0 4rem; }
+.page-content > :first-child { margin-top: 0; }
+
+/* ---------- Prose ---------- */
+
+.prose a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 2px; }
+[data-theme="dark"] .prose a { color: var(--color-primary); }
+.prose a:hover { text-decoration-thickness: 2px; }
+.prose h2 { margin-top: 2.4rem; }
+.prose h3 { margin-top: 1.8rem; }
+.prose ul, .prose ol { margin: 0 0 1.2em 1.4em; }
+.prose li { margin-bottom: 0.4em; }
+.prose code, .prose pre, .prose kbd { font-family: var(--font-mono); font-size: 0.9em; }
+.prose code { background: var(--color-surface-offset); padding: 0.15em 0.4em; border-radius: var(--radius-sm); }
+.prose pre { background: #12203a; color: #eef2f7; padding: 1rem 1.2rem; border-radius: var(--radius-md); overflow-x: auto; margin: 1.2em 0; }
+.prose pre code { background: none; padding: 0; }
+.prose blockquote { margin: 1.5em 0; padding: 0.2em 0 0.2em 1.1em; border-left: 3px solid var(--color-primary); color: var(--color-text-muted); }
+.prose blockquote > :first-child { margin-top: 0; }
+.prose blockquote > :last-child { margin-bottom: 0; }
+.prose hr { border: none; border-top: 1px solid var(--color-divider); margin: 2.5em 0; }
+.prose img { max-width: 100%; border-radius: var(--radius-md); }
+.prose table { border-collapse: collapse; width: 100%; margin: 1.5em 0; }
+.prose th, .prose td { text-align: left; padding: 0.8rem 1rem; border-bottom: 1px solid var(--color-divider); font-size: var(--text-sm); }
+.prose th { font-weight: 600; color: var(--color-text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.prose td.num, .prose th.num { font-family: var(--font-mono); }
+
+/* ---------- Hero ---------- */
+
+.hero { padding: clamp(3.5rem, 9vw, 7rem) 0 4rem; }
+.hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2.5rem; align-items: end; }
+.hero h1 { max-width: 22ch; margin-bottom: 1rem; }
+.rotating-word { font-family: 'Old Standard TT', serif; font-style: italic; display: inline-block; width: 14ch; transition: opacity 0.35s; }
+.rotating-word.c0 { color: #45B8A5; }
+.rotating-word.c1 { color: #E9AD49; }
+.rotating-word.c2 { color: #E97878; }
+.rotating-word.c3 { color: #4F8FD8; }
+.rotating-word.c4 { color: #E9AD49; }
+.hero-copy .lede, .hero-copy > p { max-width: 62ch; color: var(--color-text-muted); margin-bottom: 1.5rem; }
+.cta-row { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+
+.hero-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.link-card {
+  padding: 1.2rem; border: 1px solid var(--color-border); background: var(--color-surface-2);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); color: var(--color-text);
+}
+.link-card small { display: block; font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-faint); margin-bottom: 0.55rem; }
+.link-card strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; }
+.link-card span.desc { color: var(--color-text-muted); font-size: var(--text-sm); }
+.link-card:hover { border-color: var(--color-primary); }
+
+.hero-panel {
+  position: relative; padding: 1.5rem; border-radius: calc(var(--radius-xl) + 0.3rem);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color-surface-2) 82%, var(--color-primary) 18%), var(--color-surface));
+  border: 1px solid var(--color-border); box-shadow: var(--shadow-lg); overflow: hidden;
+}
+.hero-panel:before {
+  content: ""; position: absolute; inset: auto -40px -70px auto; width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(154, 166, 178, 0.35), transparent 65%);
+}
+.metric-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-bottom: 1rem; }
+.metric { padding: 1rem; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.35); border-radius: var(--radius-lg); }
+[data-theme="dark"] .metric { background: rgba(11, 18, 32, 0.4); border-color: rgba(255,255,255,0.08); }
+.metric strong { display: block; font-family: var(--font-display); font-size: 1.4rem; }
+.metric span { font-size: var(--text-xs); color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.07em; }
+
+/* ---------- Section scaffolding ---------- */
+
+.section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
+.section-head { display: flex; justify-content: space-between; gap: 1.5rem; align-items: end; margin-bottom: 1.8rem; }
+.section-head p { color: var(--color-text-muted); max-width: 56ch; }
+.section-head h2 { margin: 0.4rem 0 0; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin: 1.5rem 0; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin: 1.5rem 0; }
+.card {
+  border: 1px solid var(--color-border); border-radius: var(--radius-xl);
+  padding: 1.4rem 1.5rem; background: var(--color-surface-2); box-shadow: var(--shadow-sm);
+}
+.card h3 { margin-top: 0; }
+.card p { margin-bottom: 0; font-size: var(--text-sm); color: var(--color-text-muted); }
+.card p + p { margin-top: 0.75rem; }
+.card a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 2px; }
+
+/* ---------- Pricing ---------- */
+
+.plan-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin: 1.75rem 0; align-items: stretch; }
+.plan-card {
+  border: 1px solid var(--color-border); border-radius: var(--radius-xl);
+  background: var(--color-surface-2); padding: 1.4rem 1.4rem 1.5rem; box-shadow: var(--shadow-sm);
+  display: flex; flex-direction: column;
+}
+.plan-card.trial { border-color: var(--color-primary); border-width: 2px; }
+.plan-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.25rem; }
+.plan-price { font-family: var(--font-display); font-size: 1.8rem; color: var(--color-primary); margin: 0.6rem 0 0.15rem; }
+.plan-note { font-size: var(--text-sm); color: var(--color-text-faint); margin-bottom: 1rem; }
+.plan-card ul { list-style: none; margin: 0 0 1.25rem; padding: 0; font-size: var(--text-sm); flex-grow: 1; }
+.plan-card li { padding: 0.5rem 0; border-top: 1px solid var(--color-divider); color: var(--color-text-muted); }
+.plan-card li:first-child { border-top: none; }
+
+.tag {
+  display: inline-flex; padding: 0.3rem 0.65rem; border-radius: var(--radius-full);
+  background: var(--color-warn-tint); color: var(--color-warn);
+  font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 0.8rem; width: fit-content;
+}
+.tag.teal { background: var(--color-primary-tint); color: var(--color-primary); }
+[data-theme="dark"] .tag.teal { color: var(--color-primary); }
+
+/* Spec panel (free-trial numbers) */
+.spec-panel {
+  background: var(--color-surface-2); border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg); padding: 1.2rem 1.3rem; position: relative; z-index: 1;
+}
+.spec-panel .spec-title { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.04em; color: var(--color-text-muted); margin-bottom: 0.8rem; text-transform: uppercase; }
+.spec-row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.55rem 0; border-top: 1px solid var(--color-divider); font-size: var(--text-sm); }
+.spec-row:first-of-type { border-top: none; }
+.spec-row .val { font-family: var(--font-mono); color: var(--color-primary); font-weight: 600; }
+[data-theme="dark"] .spec-row .val { color: var(--color-primary); }
+
+/* ---------- Timeline / steps ---------- */
+
+.steps { counter-reset: step; list-style: none; margin: 1.5rem 0; padding: 0; }
+.steps li {
+  counter-increment: step; position: relative; padding: 0 0 1.6rem 3rem;
+  border-left: 2px solid var(--color-divider); margin-left: 1rem;
+}
+.steps li:last-child { border-left-color: transparent; padding-bottom: 0; }
+.steps li::before {
+  content: counter(step); position: absolute; left: -1.05rem; top: 0;
+  width: 2.1rem; height: 2.1rem; border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-2));
+  color: var(--color-inverse); font-family: var(--font-mono); font-size: 0.85rem;
+  display: flex; align-items: center; justify-content: center;
+}
+[data-theme="dark"] .steps li::before { color: #0b1220; }
+.steps h4 { margin: 0 0 0.3rem; font-size: 1.05rem; }
+.steps p { margin: 0; font-size: var(--text-sm); color: var(--color-text-muted); }
+.steps a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 2px; }
+
+/* ---------- Link list ---------- */
+
+.link-list { list-style: none; margin: 1rem 0; padding: 0; }
+.link-list li { border-top: 1px solid var(--color-divider); }
+.link-list li:first-child { border-top: none; }
+.link-list a {
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  padding: 0.95rem 0.25rem; color: var(--color-text); font-weight: 500;
+}
+.link-list a:hover { color: var(--color-primary); }
+.link-list .desc { color: var(--color-text-muted); font-weight: 400; font-size: var(--text-sm); }
+.link-list .arrow { color: var(--color-accent); }
+.link-list a:hover .arrow { color: var(--color-primary); }
+
+.section-label { font-family: var(--font-mono); font-size: 0.78rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 2.2rem 0 0.25rem; }
+
+/* ---------- People ---------- */
+
+.people-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 1.5rem 0; }
+.team-section { color: #7fa7d2; }
+.person { border-top: 2px solid var(--color-primary); padding-top: 0.9rem; }
+.person .name { font-weight: 700; }
+.person .role { color: var(--color-text-muted); font-size: var(--text-sm); margin-bottom: 0.35rem; }
+.person p.bio { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: 0; }
+
+/* ---------- Callouts ---------- */
+
+.callout {
+  border: 1px solid var(--color-border); border-left: 3px solid var(--color-primary);
+  background: var(--color-primary-tint); padding: 1.1rem 1.3rem; border-radius: var(--radius-md);
+  margin: 1.5rem 0; font-size: var(--text-sm);
+}
+.callout p:last-child { margin-bottom: 0; }
+.callout a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 2px; }
+.callout.amber { border-left-color: var(--color-warn); background: var(--color-warn-tint); }
+.callout.amber a { color: inherit; }
+
+/* ---------- News ---------- */
+
+.news-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin: 1.5rem 0; }
+.news-card {
+  border: 1px solid var(--color-border); border-radius: var(--radius-xl);
+  background: var(--color-surface-2); padding: 1.4rem 1.5rem; box-shadow: var(--shadow-sm);
+  display: flex; flex-direction: column; color: var(--color-text);
+}
+.news-card:hover { border-color: var(--color-primary); transform: translateY(-2px); }
+.news-card h3 { font-size: 1.2rem; }
+.news-card p { color: var(--color-text-muted); font-size: var(--text-sm); margin: 0; }
+.news-meta { display: flex; gap: 0.8rem; flex-wrap: wrap; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-faint); margin-bottom: 0.9rem; }
+
+.post-list { margin: 0.5rem 0; }
+.post-row {
+  display: flex; gap: 1.5rem; padding: 1.1rem 0.25rem; border-top: 1px solid var(--color-divider);
+  color: var(--color-text);
+}
+.post-list .post-row:first-child { border-top: none; }
+.post-row-date { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted); flex: 0 0 7.5rem; padding-top: 0.2rem; }
+.post-row-body { flex: 1; }
+.post-row-title { display: block; font-weight: 600; font-size: 1.05rem; margin-bottom: 0.25rem; }
+.post-row:hover .post-row-title { color: var(--color-primary); }
+.post-row-excerpt { display: block; color: var(--color-text-muted); font-size: var(--text-sm); }
+
+.post-meta { font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-text-muted); margin: 0; }
+.post-content { max-width: 72ch; }
+.post-footer { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-divider); font-size: var(--text-sm); }
+.post-footer a { color: var(--color-primary); }
+.post-footer a:hover { text-decoration: underline; }
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1000px) {
+  .hero-grid, .callout, .news-grid { grid-template-columns: 1fr; }
+  .plan-grid { grid-template-columns: 1fr 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .header-inner { flex-wrap: wrap; }
+  .main-nav {
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; align-items: flex-start; gap: 0.35rem;
+    background: var(--color-surface-2); border: 1px solid var(--color-divider);
+    border-radius: var(--radius-md); padding: 0.9rem; box-shadow: var(--shadow-md); z-index: 60;
+  }
+  .main-nav.is-open { display: flex; }
+  .nav-toggle { display: inline-flex; }
+  .hero { padding-top: 2.5rem; }
+  .hero-grid, .grid-3, .grid-2, .metric-strip, .hero-links, .plan-grid, .people-grid, .news-grid { grid-template-columns: 1fr; }
+  .section-head { flex-direction: column; align-items: flex-start; }
+  .footer-inner { grid-template-columns: 1fr; }
+  h1 { max-width: 14ch; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rotating-word, .news-card { transition: none; }
+}
+.news-card { transition: transform 0.15s ease, border-color 0.15s ease; }
+
+</style>
+<link rel="alternate" type="application/rss+xml" title="CLIMB News" href="https://www.climb.ac.uk/feed.xml">
+<link rel="icon" href="./index_files/climb-logo-blue.svg" type="image/svg+xml">
+<script>
+  (function(){try{var t=localStorage.getItem('climb-theme');if(t!=='light'&&t!=='dark'){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+</head>
+<body>
+  <a class="skip-link" href="https://www.climb.ac.uk/#main">Skip to content</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="https://www.climb.ac.uk/" aria-label="CLIMB home">
+      <img class="brand-logo logo-light" src="./index_files/climb-logo-blue.svg" alt="" width="38" height="38">
+      <img class="brand-logo logo-dark" src="./index_files/climb-logo-white.svg" alt="" width="38" height="38">
+      <span class="brand-wordmark">
+        <span>CLIMB</span>
+        <span>Cloud infrastructure for microbial bioinformatics</span>
+      </span>
+    </a>
+    <nav class="main-nav" id="site-nav" aria-label="Primary navigation">
+      
+        <a href="https://www.climb.ac.uk/about/">About</a>
+      
+        <a href="https://www.climb.ac.uk/pricing/">Pricing</a>
+      
+        <a href="https://www.climb.ac.uk/getting-started/">Getting Started</a>
+      
+        <a href="https://www.climb.ac.uk/blog/">News</a>
+      
+        <a href="https://www.climb.ac.uk/contact/">Contact</a>
+      
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" type="button" data-theme-toggle="" aria-label="Switch to dark mode">
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
+      </button>
+      <a class="nav-cta" href="https://docs.climb.ac.uk/" target="_blank" rel="noopener noreferrer">Documentation</a>
+      <button class="nav-toggle" type="button" data-nav-toggle="" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+  <main id="main">
+    <section class="hero" id="top">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">The UK infrastructure for microbial bioinformatics</span>
+      <h1>Cloud resources for <span class="rotating-word c4" id="hero-rotator" style="opacity: 1;">easy</span> bioinformatics.</h1>
+      <p class="lede">
+        JupyterLab environments, shared storage and Nextflow support for genomics,
+        metagenomics and pathogen surveillance run by researchers, for
+        researchers. Four months free trial, specs and prices up
+        front.
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href="https://bryn.climb.ac.uk/user/register/" target="_blank" rel="noopener noreferrer">Register on Bryn</a>
+        <a class="btn secondary" href="https://www.climb.ac.uk/pricing/">See pricing &amp; specs</a>
+      </div>
+      <div class="hero-links">
+        <a class="link-card" href="https://docs.climb.ac.uk/" target="_blank" rel="noopener noreferrer">
+          <small>Documentation</small>
+          <strong>docs.climb.ac.uk</strong>
+          <span class="desc">Technical docs, tutorials and onboarding for working on CLIMB.</span>
+        </a>
+        <a class="link-card" href="https://bryn.climb.ac.uk/" target="_blank" rel="noopener noreferrer">
+          <small>User portal</small>
+          <strong>bryn.climb.ac.uk</strong>
+          <span class="desc">Login, access requests, notebook launch and support tickets.</span>
+        </a>
+      </div>
+    </div>
+    <aside class="hero-panel" aria-label="Free trial highlights">
+      <div class="metric-strip">
+        <div class="metric"><span>Active since</span><strong>2014</strong></div>
+        <div class="metric"><span>Research groups</span><strong>300+</strong></div>
+        <div class="metric"><span>Institutes</span><strong>80+</strong></div>
+      </div>
+      <div class="spec-panel">
+        <p class="spec-title">What's in the free 4-months trial (from Oct '26)</p>
+        <div class="spec-row"><span>Notebook CPUs</span><span class="val">8 vCPU</span></div>
+        <div class="spec-row"><span>Notebook RAM</span><span class="val">64 GB memory</span></div>
+        <div class="spec-row"><span>Team storage (SSD)</span><span class="val">500 GB</span></div>
+        <div class="spec-row"><span>S3 object storage</span><span class="val">1 TB</span></div>
+        <div class="spec-row"><span>Cost</span><span class="val">£0</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <img src="./index_files/climb-notebook.svg" alt="CLIMB notebook file browser and interface preview" width="754" height="455" style="width:100%; border-radius:var(--radius-lg); box-shadow:var(--shadow-lg);">
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="tag teal">What you get</span>
+        <h2>Everything you need to analyse microbial data, in one place.</h2>
+      </div>
+      <p>CLIMB bundles the infrastructure, tools and support that researchers reach for most, so you can spend time on your science rather than on setup.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <h3>JupyterLab environments</h3>
+        <p>Jupyter notebooks, RStudio and a terminal, with flexible CPU/GPU allocation. Access from any browser — nothing to install, nothing to patch.</p>
+      </div>
+      <div class="card">
+        <h3>Built for bioinformatics</h3>
+        <p>Pre-installed bioinformatics tools, reference databases and Nextflow pipelines for microbial genomics and metagenomics — and we listen when you need something we don't have yet.</p>
+      </div>
+      <div class="card">
+        <h3>Team storage &amp; sharing</h3>
+        <p>Fast shared team storage and S3 object storage, with private or public access so you control who sees what.</p>
+      </div>
+      <div class="card">
+        <h3>Nextflow on Kubernetes</h3>
+        <p>Run nf-core and custom pipelines against dedicated compute, separate from the resources allocated to your JupyterLab environment.</p>
+      </div>
+      <div class="card">
+        <h3>Secure by default</h3>
+        <p>Two-factor authentication is mandatory across accounts, with UK-based data storage and role-based team permissions.</p>
+      </div>
+      <div class="card">
+        <h3>Support</h3>
+        <p>Documentation, a support ticketing system and a team that has run the infrastructure since 2014.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="tag teal">Pricing</span>
+        <h2>Choose the plan that fits your work.</h2>
+      </div>
+      <p>Every plan starts from the same infrastructure. Pick the shape that matches what you're doing — research, teaching, surveillance, or just trying it out.</p>
+    </div>
+    <div class="plan-grid">
+      <div class="plan-card trial">
+        <span class="tag teal">Start here</span>
+        <div class="plan-name">Trial</div>
+        <div class="plan-price">Free</div>
+        <div class="plan-note">4 months, no card required</div>
+        <ul>
+          <li>8 CPUs, 64 GB memory</li>
+          <li>500GB Team Shared</li>
+          <li>1TB S3</li>
+        </ul>
+        <a class="btn secondary" href="https://www.climb.ac.uk/pricing/trial/">Trial details</a>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name">Research</div>
+        <div class="plan-price">from £1,300/year</div>
+        <div class="plan-note">Individual researchers &amp; small labs</div>
+        <ul>
+          <li>8 CPUs, 64GB memory</li>
+          <li>500 GB Team Shared Storage</li>
+          <li>1 TB S3 Storage</li>
+        </ul>
+        <a class="btn secondary" href="https://www.climb.ac.uk/pricing/research/">Research pricing</a>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name">Training</div>
+        <div class="plan-price">from £35pp per week</div>
+        <div class="plan-note">Sandboxed environments</div>
+        <ul>
+          <li>Per-cohort setup</li>
+          <li>Pre-loaded materials</li>
+          <li>No SSH hassle for attendees</li>
+        </ul>
+        <a class="btn secondary" href="https://www.climb.ac.uk/pricing/training/">Training pricing</a>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name">Surveillance</div>
+        <div class="plan-price">Contact us</div>
+        <div class="plan-note">For public health &amp; agency programmes</div>
+        <ul>
+          <li>Dedicated capacity</li>
+          <li>Multi-institution access</li>
+          <li>Rapid scale-up</li>
+        </ul>
+        <a class="btn secondary" href="https://www.climb.ac.uk/pricing/surveillance/">Surveillance pricing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="tag teal">About</span>
+        <h2>A decade of national microbial bioinformatics.</h2>
+      </div>
+      <p>CLIMB started as an MRC-funded initiative and grew into the reference infrastructure for microbial genomics in the UK — and the backbone of the country's COVID-19 genomic surveillance.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <h3>1,000+ researchers</h3>
+        <p>Used CLIMB across 300+ research groups and 80+ UK institutions.</p>
+      </div>
+      <div class="card">
+        <h3>80+ publications a year</h3>
+        <p>Acknowledging CLIMB infrastructure.</p>
+      </div>
+      <div class="card">
+        <h3>National surveillance backbone</h3>
+        <p>Core computing infrastructure for UK COVID-19 genomic surveillance, PATH-SAFE and mSCAPE.</p>
+      </div>
+    </div>
+    <p><a href="https://www.climb.ac.uk/docs/case-studies/">Read the case studies →</a></p>
+    <p><a href="https://www.climb.ac.uk/about/history/">Read the full history →</a></p>
+  </div>
+</section>
+
+<section class="section" id="news">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="tag teal">News</span>
+        <h2>Latest from CLIMB.</h2>
+      </div>
+      <p>Announcements, funding updates and stories from the CLIMB community.</p>
+    </div>
+    <div class="news-grid">
+      
+      <a class="news-card" href="https://www.climb.ac.uk/blog/2026/09/14/gpu-accelerated-computing-microbiome-metagenomic-research-workshop/">
+        <div class="news-meta">
+          <span>Announcement</span>
+          <span>14 Sep 2026</span>
+        </div>
+        <h3>Call for Applications: GPU-Accelerated Computing for Microbiome and Metagenomic Research</h3>
+        <p>A two-day workshop series bridging high-performance GPU infrastructure and the future of microbial genomics Join us for a specialised two-day...</p>
+      </a>
+      
+      <a class="news-card" href="https://www.climb.ac.uk/blog/2026/09/01/welcome-to-the-new-climb-website/">
+        <div class="news-meta">
+          <span>Announcement</span>
+          <span>1 Sep 2026</span>
+        </div>
+        <h3>Welcome to the new CLIMB website</h3>
+        <p>We’ve rebuilt climb.ac.uk from the ground up: a minimal, fast site focused on what researchers actually need — what CLIMB...</p>
+      </a>
+      
+      <a class="news-card" href="https://www.climb.ac.uk/blog/2026/08/15/documentation-updates/">
+        <div class="news-meta">
+          <span>Documentation</span>
+          <span>15 Aug 2026</span>
+        </div>
+        <h3>Documentation updates</h3>
+        <p>Our Documentation website, docs.climb.ac.uk, is a living resource. If you spot something missing or out of date, let us know...</p>
+      </a>
+      
+    </div>
+    <p><a href="https://www.climb.ac.uk/blog/">All news →</a></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="callout">
+      <div>
+        <span class="tag teal">Navigation</span>
+        <h3>Keep the two key destinations close.</h3>
+        <p>Documentation and user login live elsewhere — here's where to read more or sign in.</p>
+      </div>
+      <div class="cta-row" style="margin-bottom:0; justify-content:flex-start; align-items:center;">
+        <a class="btn primary" href="https://docs.climb.ac.uk/" target="_blank" rel="noopener noreferrer">Open docs</a>
+        <a class="btn secondary" href="https://bryn.climb.ac.uk/" target="_blank" rel="noopener noreferrer">Open Bryn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </main>
+  <footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img class="brand-logo" src="./index_files/climb-logo-white.svg" alt="CLIMB logo" width="44" height="44">
+      <p>Cloud infrastructure for microbial bioinformatics, built and supported in the UK.</p>
+      <div class="footer-logos">
+        <a href="https://www.quadram.ac.uk/"><img class="logo-qib" src="./index_files/QI-logo-v1-horizontal-white.png" alt="Quadram Institute Bioscience" width="1060" height="580"></a>
+        <a href="https://www.birmingham.ac.uk/"><img src="./index_files/birmingham-uni2.png" alt="University of Birmingham" width="270" height="80"></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="https://www.climb.ac.uk/pricing/">Pricing</a></li>
+        <li><a href="https://www.climb.ac.uk/getting-started/">Getting started</a></li>
+        <li><a href="https://www.climb.ac.uk/docs/">Documentation</a></li>
+        <li><a href="https://www.climb.ac.uk/blog/">News</a></li>
+        <li><a href="https://bryn.climb.ac.uk/user/login/">Sign in to Bryn</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Organisation</h4>
+      <ul>
+        <li><a href="https://www.climb.ac.uk/about/">About</a></li>
+        <li><a href="https://www.climb.ac.uk/about/team/">Team</a></li>
+        <li><a href="https://www.climb.ac.uk/docs/case-studies/">Case studies</a></li>
+        <li><a href="https://www.climb.ac.uk/about/citation/">Citing CLIMB</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="mailto:climb@quadram.ac.uk">climb@quadram.ac.uk</a></li>
+        <li><a href="https://www.climb.ac.uk/support/">Support hub</a></li>
+        <li><a href="https://www.climb.ac.uk/contact/">Contact us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-base">
+    <span>© 2026 CLIMB</span>
+    <span><a href="https://www.climb.ac.uk/about/terms/">Terms</a> · <a href="https://www.climb.ac.uk/about/privacy/">Privacy</a></span>
+  </div>
+</footer>
+  <script src="./index_files/main.js.download" defer=""></script>
+
+</body></html>
